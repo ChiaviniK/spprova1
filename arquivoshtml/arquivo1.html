@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Exemplo de Tabela</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Idade</th>
+          <th>Raça</th>
+          <th>Dono</th>
+        </tr>
+      </thead>
+      <tbody id="dados">
+      </tbody>
+    </table>
+
+    <script>
+      fetch("https://www.seusite.com/seuarquivo.json")
+        .then(response => response.json())
+        .then(data => {
+          const tbody = document.getElementById("dados");
+
+          data.forEach((item) => {
+            const tr = document.createElement("tr");
+            const nome = document.createElement("td");
+            nome.textContent = item.nome;
+            tr.appendChild(nome);
+            const tipo = document.createElement("td");
+            tipo.textContent = item.tipo;
+            tr.appendChild(tipo);
+            const idade = document.createElement("td");
+            idade.textContent = item.idade;
+            tr.appendChild(idade);
+            const raca = document.createElement("td");
+            raca.textContent = item.raca;
+            tr.appendChild(raca);
+            const dono = document.createElement("td");
+            dono.textContent = `${item.dono.nome} (${item.dono.email})`;
+            tr.appendChild(dono);
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(error => {
+          console.error("Ocorreu um erro ao buscar o arquivo: ", error);
+        });
+    </script>
+  </body>
+</html>
